@@ -14,6 +14,9 @@
   <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
   <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
   <script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.removeAttribute('data-theme');
+});
     const setDarkClass = () => {
       const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
         '(prefers-color-scheme: dark)').matches);
@@ -22,20 +25,6 @@
     setDarkClass();
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setDarkClass);
   </script>
- {{-- <script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('collapse', () => ({
-      open: false,
-      toggle() {
-        this.open = !this.open;
-      },
-      autoHeight(ref) {
-          ref.style.height = this.open ? `${ref.scrollHeight}px` : '0px';
-        },
-    }));
-  });
-</script> --}}
-
 
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
