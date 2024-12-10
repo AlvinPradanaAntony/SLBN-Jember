@@ -5,32 +5,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
   <link rel="icon" type="image/png" href="assets/img/logo.png">
   <title>@yield('title', config('app.name'))</title>
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
   <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-    document.documentElement.removeAttribute('data-theme');
-});
-    const setDarkClass = () => {
-      const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
-        '(prefers-color-scheme: dark)').matches);
-      document.documentElement.classList.toggle('dark', isDark);
-    };
-    setDarkClass();
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setDarkClass);
+    const theme = localStorage.getItem("theme");
+    theme ? document.documentElement.setAttribute("data-theme", theme) : null;
   </script>
-
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-slate-50 dark:bg-gray-900">
+<body class="bg-slate-50 font-sans antialiased dark:bg-gray-900">
   @include('partials.sidebar')
 
   <!-- Page Content -->
@@ -38,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       @yield('content')
     </main> --}}
 
-    
+
 </body>
 
 </html>

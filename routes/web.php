@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/coba', function () {
+    return view('blank');
+});
 
 Route::get('/dashboard', function () {
     return view('beranda');

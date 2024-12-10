@@ -13,8 +13,7 @@
           :class="close && 'opacity-0 scale-95 m-0'">
           <div class="flex items-center space-x-0.5">
             <span class="font-logo font-bold text-gray-800">Portal</span>
-            <span
-              class="rounded-md bg-blue-500 px-2 py-1 font-secondary text-2xs font-bold text-white">Admin</span>
+            <span class="rounded-md bg-blue-500 px-2 py-1 font-secondary text-2xs font-bold text-white">Admin</span>
           </div>
           <span class="line-clamp-1 text-xs leading-none text-gray-400">SLB Negeri Jember</span>
         </div>
@@ -87,7 +86,7 @@
       <ul>
         <li>
           <a href="#"
-            class="text-base-100 flex items-center space-x-2 rounded-xl p-2 text-sm font-medium hover:bg-gray-200">
+            class="flex items-center space-x-2 rounded-xl p-2 text-sm font-medium text-slate-500 hover:bg-gray-200">
             <svg class="size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M9.85714 3H4.14286C3.51167 3 3 3.51167 3 4.14286V9.85714C3 10.4883 3.51167 11 4.14286 11H9.85714C10.4883 11 11 10.4883 11 9.85714V4.14286C11 3.51167 10.4883 3 9.85714 3Z"
@@ -102,7 +101,7 @@
                 d="M19.757 12.8999H14.0428C13.4116 12.8999 12.8999 13.4116 12.8999 14.0428V19.757C12.8999 20.3882 13.4116 20.8999 14.0428 20.8999H19.757C20.3882 20.8999 20.8999 20.3882 20.8999 19.757V14.0428C20.8999 13.4116 20.3882 12.8999 19.757 12.8999Z"
                 fill="currentColor" fill-opacity="0.3"></path>
             </svg>
-            <span>Dashboard</span>
+            <span class="text-primary">Dashboard</span>
           </a>
         </li>
         <li x-data="{ expanded: false }">
@@ -146,5 +145,29 @@
 
 
 <main class="ms-60 mt-[70px] p-4">
+  <div class="dropdown">
+    <div tabindex="0" role="button" class="btn m-1">
+      Theme
+      <svg width="12px" height="12px" class="inline-block h-2 w-2 fill-current opacity-60"
+        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
+        <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+      </svg>
+    </div>
+    <ul tabindex="0" class="dropdown-content z-[1] w-52 rounded-box bg-base-300 p-2 shadow-2xl">
+      <li>
+        <input type="radio" name="theme-dropdown"
+          class="theme-controller btn btn-ghost btn-sm btn-block justify-start" aria-label="Default" value="default" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown"
+          class="theme-controller btn btn-ghost btn-sm btn-block justify-start" aria-label="Light" value="mylight" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown"
+          class="theme-controller btn btn-ghost btn-sm btn-block justify-start" aria-label="Dark" value="mydark" />
+      </li>
+    </ul>
+  </div>
 
+  <div class="w-40 h-32 bg-coba rounded-xl shadow-lg"></div>
 </main>
