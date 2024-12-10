@@ -1,26 +1,27 @@
 <div x-data="{ close: false }">
-  <div class="w-60 h-screen fixed bg-white pt-2 border-r border-r-slate-100 transition-all ease-in-out duration-700 z-40 top-0 left-0 flex flex-col"
+  <div
+    class="fixed left-0 top-0 z-40 flex h-screen w-60 flex-col border-r border-r-slate-100 bg-white pt-2 transition-all duration-700 ease-in-out"
     :class="{ 'w-60': !close, 'w-20': close }">
     <div class="relative">
-      <a href="#" class="flex items-center rounded-lg min-h-[52px] px-6">
+      <a href="#" class="flex min-h-[52px] items-center rounded-lg px-6">
         <div
-          class="bg-blue-500 p-2 text-white rounded-md flex items-center justify-center text-center transition ease-in-out duration-700"
+          class="flex items-center justify-center rounded-md bg-blue-500 p-2 text-center text-white transition duration-700 ease-in-out"
           :class="close && 'scale-125'">
-          <i class="text-lg fi fi-brands-slack leading-[0px]"></i>
+          <i class="fi fi-brands-slack text-lg leading-[0px]"></i>
         </div>
-        <div class="flex flex-col ml-2 transition ease-in-out duration-500 overflow-hidden scale-100"
+        <div class="ml-2 flex scale-100 flex-col overflow-hidden transition duration-500 ease-in-out"
           :class="close && 'opacity-0 scale-95 m-0'">
           <div class="flex items-center space-x-0.5">
             <span class="font-logo font-bold text-gray-800">Portal</span>
             <span
-              class="px-2 py-1 text-[0.625rem] font-secondary font-bold text-white bg-blue-500 rounded-md">Admin</span>
+              class="rounded-md bg-blue-500 px-2 py-1 font-secondary text-2xs font-bold text-white">Admin</span>
           </div>
-          <span class="text-xs text-gray-400 leading-none line-clamp-1">SLB Negeri Jember</span>
+          <span class="line-clamp-1 text-xs leading-none text-gray-400">SLB Negeri Jember</span>
         </div>
       </a>
       <button
-        class="absolute top-[10px] right-3 bg-slate-200/70 hover:bg-slate-200 w-8 h-8 flex justify-center items-center rounded-full p-2 transition-all ease-in-out duration-700"
-        :class="close && '-right-[1rem] rotate-180'" @click="close = !close">
+        class="absolute right-0 top-1/2 -mr-4 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-slate-200/70 p-2 transition-all duration-700 ease-in-out hover:bg-slate-200"
+        :class="close && 'rotate-180'" @click="close = !close">
         <i class="fi fi-sr-angle-small-right text-lg leading-[0px]"></i>
       </button>
     </div>
@@ -82,45 +83,55 @@
         </svg>
       </a>
     </div> --}}
-    <nav class="flex-1 p-4 mt-2">
+    <nav class="mt-2 flex-1 p-4">
       <ul>
         <li>
-          <a href="#" class="flex items-center p-2 text-sm text-base-100 hover:bg-gray-200 space-x-2 rounded-xl font-medium">
+          <a href="#"
+            class="text-base-100 flex items-center space-x-2 rounded-xl p-2 text-sm font-medium hover:bg-gray-200">
             <svg class="size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.85714 3H4.14286C3.51167 3 3 3.51167 3 4.14286V9.85714C3 10.4883 3.51167 11 4.14286 11H9.85714C10.4883 11 11 10.4883 11 9.85714V4.14286C11 3.51167 10.4883 3 9.85714 3Z" fill="currentColor"></path>
-              <path d="M9.85714 12.8999H4.14286C3.51167 12.8999 3 13.4116 3 14.0428V19.757C3 20.3882 3.51167 20.8999 4.14286 20.8999H9.85714C10.4883 20.8999 11 20.3882 11 19.757V14.0428C11 13.4116 10.4883 12.8999 9.85714 12.8999Z" fill="currentColor" fill-opacity="0.3"></path>
-              <path d="M19.757 3H14.0428C13.4116 3 12.8999 3.51167 12.8999 4.14286V9.85714C12.8999 10.4883 13.4116 11 14.0428 11H19.757C20.3882 11 20.8999 10.4883 20.8999 9.85714V4.14286C20.8999 3.51167 20.3882 3 19.757 3Z" fill="currentColor" fill-opacity="0.3"></path>
-              <path d="M19.757 12.8999H14.0428C13.4116 12.8999 12.8999 13.4116 12.8999 14.0428V19.757C12.8999 20.3882 13.4116 20.8999 14.0428 20.8999H19.757C20.3882 20.8999 20.8999 20.3882 20.8999 19.757V14.0428C20.8999 13.4116 20.3882 12.8999 19.757 12.8999Z" fill="currentColor" fill-opacity="0.3"></path>
+              <path
+                d="M9.85714 3H4.14286C3.51167 3 3 3.51167 3 4.14286V9.85714C3 10.4883 3.51167 11 4.14286 11H9.85714C10.4883 11 11 10.4883 11 9.85714V4.14286C11 3.51167 10.4883 3 9.85714 3Z"
+                fill="currentColor"></path>
+              <path
+                d="M9.85714 12.8999H4.14286C3.51167 12.8999 3 13.4116 3 14.0428V19.757C3 20.3882 3.51167 20.8999 4.14286 20.8999H9.85714C10.4883 20.8999 11 20.3882 11 19.757V14.0428C11 13.4116 10.4883 12.8999 9.85714 12.8999Z"
+                fill="currentColor" fill-opacity="0.3"></path>
+              <path
+                d="M19.757 3H14.0428C13.4116 3 12.8999 3.51167 12.8999 4.14286V9.85714C12.8999 10.4883 13.4116 11 14.0428 11H19.757C20.3882 11 20.8999 10.4883 20.8999 9.85714V4.14286C20.8999 3.51167 20.3882 3 19.757 3Z"
+                fill="currentColor" fill-opacity="0.3"></path>
+              <path
+                d="M19.757 12.8999H14.0428C13.4116 12.8999 12.8999 13.4116 12.8999 14.0428V19.757C12.8999 20.3882 13.4116 20.8999 14.0428 20.8999H19.757C20.3882 20.8999 20.8999 20.3882 20.8999 19.757V14.0428C20.8999 13.4116 20.3882 12.8999 19.757 12.8999Z"
+                fill="currentColor" fill-opacity="0.3"></path>
             </svg>
             <span>Dashboard</span>
           </a>
         </li>
         <li x-data="{ expanded: false }">
-          <a href="#" @click="expanded = !expanded" class="flex items-center justify-between p-2 text-gray-700 hover:bg-gray-200 rounded">
+          <a href="#" @click="expanded = !expanded"
+            class="flex items-center justify-between rounded p-2 text-gray-700 hover:bg-gray-200">
             <span class="ml-2" :class="{ 'hidden': !open }">Menu 1</span>
-            <i class="fi fi-rr-angle-small-right text-md text-slate-500 leading-[0px]"></i>
+            <i class="fi fi-rr-angle-small-right text-md leading-[0px] text-slate-500"></i>
           </a>
           <ul x-show="open" class="pl-4">
             <li>
-              <a href="#" class="block p-2 text-gray-700 hover:bg-gray-200 rounded">Sub Menu 1</a>
+              <a href="#" class="block rounded p-2 text-gray-700 hover:bg-gray-200">Sub Menu 1</a>
             </li>
             <li>
-              <a href="#" class="block p-2 text-gray-700 hover:bg-gray-200 rounded">Sub Menu 2</a>
+              <a href="#" class="block rounded p-2 text-gray-700 hover:bg-gray-200">Sub Menu 2</a>
             </li>
           </ul>
         </li>
         <li x-data="{ open: false }">
           <a href="#" @click="open = !open"
-            class="flex items-center justify-between p-2 text-gray-700 hover:bg-gray-200 rounded">
+            class="flex items-center justify-between rounded p-2 text-gray-700 hover:bg-gray-200">
             <span class="ml-2" :class="{ 'hidden': !open }">Menu 2</span>
             <i class="fi fi-sr-angle-small-right text-lg leading-[0px]"></i>
           </a>
           <ul x-show="open" class="pl-4">
             <li>
-              <a href="#" class="block p-2 text-gray-700 hover:bg-gray-200 rounded">Sub Menu 1</a>
+              <a href="#" class="block rounded p-2 text-gray-700 hover:bg-gray-200">Sub Menu 1</a>
             </li>
             <li>
-              <a href="#" class="block p-2 text-gray-700 hover:bg-gray-200 rounded">Sub Menu 2</a>
+              <a href="#" class="block rounded p-2 text-gray-700 hover:bg-gray-200">Sub Menu 2</a>
             </li>
           </ul>
         </li>
@@ -128,12 +139,12 @@
     </nav>
   </div>
 </div>
-<header class="bg-white shadow-sm h-[70px] fixed w-full z-10 top-0">
+<header class="fixed top-0 z-10 h-[70px] w-full bg-white shadow-sm">
   <div>
   </div>
 </header>
 
 
-<main class="p-4 ms-60 mt-[70px]">
+<main class="ms-60 mt-[70px] p-4">
 
 </main>

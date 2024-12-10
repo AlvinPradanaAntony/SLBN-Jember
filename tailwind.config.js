@@ -16,6 +16,9 @@ export default {
                 secondary: ["Poppins", "sans-serif"],
                 logo: ["Filson", "sans-serif"],
             },
+            fontSize: {
+                '2xs' : '.625rem',
+            },
         },
     },
 
