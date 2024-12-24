@@ -1,17 +1,28 @@
-@import "@flaticon/flaticon-uicons/css/all/all";
+@import '@flaticon/flaticon-uicons/css/all/all';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-      font-family: "Filson";
-      font-display: swap;
-      src: url('/resources/fonts/filson_black.otf') format("opentype");
-    }
-}
-
-[x-cloak] {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply text-base-content;
+  }
+  [x-cloak] {
     display: none !important;
+  }
+  @font-face {
+    font-family: 'Filson';
+    font-display: swap;
+    src: url('/resources/fonts/filson_black.otf') format('opentype');
+  }
 }
-
+.wave-clip {
+  clip-path: polygon(100% 100%, 0% 100%, 0% 88.53%, 2% 88.66%, 4% 88.63%, 6% 88.43%, 8% 88.08%, 10% 87.57%, 12% 86.91%, 14% 86.09%, 16% 85.13%, 18% 84.02%, 20% 82.78%, 22% 81.4%, 24% 79.9%, 26% 78.28%, 28% 76.55%, 30% 74.71%, 32% 72.78%, 34% 70.76%, 36% 68.66%, 38% 66.5%, 40% 64.27%, 42% 62.01%, 44% 59.7%, 46% 57.37%, 48% 55.02%, 50% 52.67%, 52% 50.32%, 54% 47.99%, 56% 45.69%, 58% 43.43%, 60% 41.22%, 62% 39.06%, 64% 36.97%, 66% 34.97%, 68% 33.04%, 70% 31.22%, 72% 29.5%, 74% 27.89%, 76% 26.41%, 78% 25.05%, 80% 23.82%, 82% 22.73%, 84% 21.79%, 86% 21%, 88% 20.35%, 90% 19.86%, 92% 19.53%, 94% 19.36%, 96% 19.35%, 98% 19.49%, 100% 19.8%);
+}
+.simplebar-scrollbar::before {
+  @apply bg-neutral-content delay-1000;
+}

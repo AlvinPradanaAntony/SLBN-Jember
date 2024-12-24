@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html
-  lang="{{ str_replace("_", "-", app()->getLocale()) }}"
+  lang="{{ str_replace('_', '-', app()->getLocale()) }}"
   class="scroll-smooth transition-colors duration-500 ease-in-out">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" type="image/png" href="assets/img/logo.png" />
-    <title>@yield("title", config("app.name"))</title>
+    <title>@yield('title', config('app.name'))</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link
-      href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
-      rel="stylesheet" />
-    <script
-      defer
-      src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
     <script>
-      const theme = localStorage.getItem('theme');
-      theme ? document.documentElement.setAttribute('data-theme', theme) : null;
+      const setThemes = () => {
+        const theme = localStorage.getItem('theme');
+        if (theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        } else {
+          // Jika tidak ada tema di localStorage, ikuti preferensi sistem operasi
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        }
+      };
+      setThemes();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setThemes);
     </script>
+
     <!-- Scripts -->
-    @vite(["resources/css/app.css", "resources/js/app.js"])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 
   <body class="font-sans antialiased">
@@ -30,7 +40,7 @@
       <div class="flex gap-2">
         <div class="flex h-64 w-80 rounded-xl bg-base-200">
           <div class="dropdown m-auto">
-            <div tabindex="0" role="button" class="btn m-1">
+            <div tabindex="0" role="button" class="btn m-1 bg-base-100 hover:border-base-200 hover:bg-base-content/10">
               Theme
               <svg
                 width="12px"
@@ -38,72 +48,251 @@
                 class="inline-block h-2 w-2 fill-current opacity-60"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 2048 2048">
-                <path
-                  d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+                <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
               </svg>
             </div>
             <ul
+              x-data="{theme: localStorage.getItem('theme') || ''}"
               tabindex="0"
-              class="dropdown-content z-[1] min-w-52 rounded-box bg-base-200 p-2 shadow-2xl">
+              class="dropdown-content z-[1] min-w-52 rounded-box bg-base-100 p-2 shadow-2xl">
               <li>
-                {{--
-                  <input type="radio" name="theme-dropdown"
-                  class="theme-controller btn btn-ghost btn-sm btn-block justify-start" aria-label="Default"
-                  value="default" data-set-theme="" />
-                --}}
-                {{--
-                  <div class="mockup-window bg-base-300 border">
-                  <div class="bg-base-200 flex justify-center px-4 py-16">Hello!</div>
-                  </div>
-                --}}
                 <label
-                  class="relative inline-flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-transparent p-2 transition-all duration-500 hover:bg-slate-200 has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
-                  <div
-                    class="relative inline-flex items-center justify-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="currentColor">
-                      <path
-                        d="M32 13.333l-4.177 9.333h-1.292l1.552-3.266-2.75-6.068h1.359l1.99 4.651h0.026l1.927-4.651zM14.646 16.219v3.781h-1.313v-9.333h3.474c0.828-0.021 1.63 0.266 2.25 0.807 0.615 0.505 0.953 1.219 0.943 1.974 0.010 0.766-0.339 1.5-0.943 1.979-0.604 0.531-1.354 0.792-2.25 0.792zM14.641 11.818v3.255h2.198c0.484 0.016 0.958-0.161 1.297-0.479 0.339-0.302 0.526-0.714 0.526-1.141 0-0.432-0.188-0.844-0.526-1.141-0.349-0.333-0.818-0.51-1.297-0.495zM22.63 13.333c0.833 0 1.495 0.234 1.979 0.698s0.724 1.099 0.724 1.906v3.859h-1.083v-0.87h-0.047c-0.469 0.714-1.089 1.073-1.865 1.073-0.667 0-1.219-0.203-1.667-0.615-0.438-0.385-0.682-0.948-0.672-1.531 0-0.646 0.234-1.161 0.708-1.547 0.469-0.38 1.099-0.573 1.885-0.573 0.672 0 1.224 0.13 1.656 0.385v-0.271c0.005-0.396-0.167-0.776-0.464-1.042-0.297-0.276-0.688-0.432-1.094-0.427-0.63 0-1.13 0.276-1.5 0.828l-0.995-0.646c0.547-0.818 1.359-1.229 2.432-1.229zM21.167 17.88c-0.005 0.302 0.135 0.583 0.375 0.766 0.25 0.203 0.563 0.313 0.88 0.307 0.474 0 0.932-0.198 1.271-0.547 0.359-0.333 0.563-0.802 0.563-1.292-0.354-0.292-0.844-0.438-1.474-0.438-0.464 0-0.844 0.115-1.151 0.344-0.307 0.234-0.464 0.516-0.464 0.859zM5.443 10.667c1.344-0.016 2.646 0.479 3.641 1.391l-1.552 1.521c-0.568-0.526-1.318-0.813-2.089-0.797-1.385 0.005-2.609 0.891-3.057 2.198-0.229 0.661-0.229 1.38 0 2.042 0.448 1.307 1.672 2.193 3.057 2.198 0.734 0 1.365-0.182 1.854-0.505 0.568-0.375 0.964-0.958 1.083-1.625h-2.938v-2.052h5.13c0.063 0.359 0.094 0.719 0.094 1.083 0 1.625-0.594 3-1.62 3.927-0.901 0.813-2.135 1.286-3.604 1.286-2.047 0.010-3.922-1.125-4.865-2.938-0.771-1.505-0.771-3.286 0-4.792 0.943-1.813 2.818-2.948 4.859-2.938z"></path>
-                    </svg>
-                    <p
-                      class="absolute inset-0 left-2 top-1 w-full translate-x-full translate-y-[110%] whitespace-nowrap font-semibold opacity-0 transition-all duration-700">
-                      Google Pay
-                    </p>
+                  x-data="{
+                    setTheme(mode) {
+                      this.theme = mode
+                      if (mode === 'default') {
+                        window.matchMedia('(prefers-color-scheme: dark)').matches ? document.documentElement.setAttribute('data-theme', 'dark') : document.documentElement.setAttribute('data-theme', 'light');
+                        localStorage.removeItem('theme');
+                      }
+                      setThemes();
+                    },
+                  }"
+                  class="inline-flex w-full cursor-pointer items-center justify-start rounded-lg border border-transparent p-2 hover:bg-base-content/10 has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
+                  <div class="inline-flex w-full items-center gap-2">
+                    <input
+                      @click="setTheme('default')"
+                      type="radio"
+                      name="theme-dropdown"
+                      value="default"
+                      aria-label="Default"
+                      :checked="theme === ''"
+                      class="checked:text-indigo-500 checked:ring-0 checked:ring-current focus:ring-0 focus:ring-current" />
+                    <div class="grid overflow-hidden rounded-xl">
+                      <div
+                        class="mockup-window col-start-1 row-start-1 w-44 rounded-xl border bg-base-300 before:-mt-4 before:mb-1 before:h-[6px] before:opacity-100 before:shadow-circle dark:border-base-content"
+                        data-theme="light">
+                        <div class="h-24 bg-base-200">
+                          <div class="flex h-full">
+                            {{-- sidebar --}}
+                            <div class="flex w-11 flex-col border-r bg-base-100">
+                              <div class="p-1">
+                                <div class="mb-5 h-2 w-6 rounded-badge bg-base-200"></div>
+                                <div class="flex flex-col gap-1">
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex flex-1 flex-col">
+                              <div class="h-3 border-b bg-base-100"></div>
+                              <div class="flex h-full flex-col gap-2 p-1 pb-0">
+                                <div class="flex justify-between">
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                </div>
+                                <div class="flex h-full flex-col gap-1 rounded-t-md bg-base-100 p-2">
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                  <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="wave-clip mockup-window col-start-1 row-start-1 w-44 rounded-xl border border-base-100 bg-base-300 before:-mt-4 before:mb-1 before:h-[6px] before:opacity-100 before:shadow-circle"
+                        data-theme="dark">
+                        <div class="h-24 bg-base-200">
+                          <div class="flex h-full">
+                            {{-- sidebar --}}
+                            <div class="flex w-11 flex-col border-r border-base-100 bg-base-100">
+                              <div class="p-1">
+                                <div class="mb-5 h-2 w-6 rounded-badge bg-base-200"></div>
+                                <div class="flex flex-col gap-1">
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex flex-1 flex-col">
+                              <div class="h-3 border-b border-base-100 bg-base-100"></div>
+                              <div class="flex h-full flex-col gap-2 p-1 pb-0">
+                                <div class="flex justify-between">
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                  <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                    <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                    <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                  </div>
+                                </div>
+                                <div class="flex h-full flex-col gap-1 rounded-t-md bg-base-100 p-2">
+                                  <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                  <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                  <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="google"
-                    class="checked:text-indigo-500 checked:ring-0 checked:ring-current focus:ring-0 focus:ring-current" />
                 </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="theme-dropdown"
-                  class="theme-controller btn btn-ghost btn-sm btn-block justify-start"
-                  aria-label="Light"
-                  value="light"
-                  data-set-theme="light" />
+                <label
+                  class="inline-flex w-full cursor-pointer items-center justify-start rounded-lg border border-transparent p-2 hover:bg-base-content/10 has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
+                  <div class="inline-flex w-full items-center gap-2">
+                    <input
+                      type="radio"
+                      name="theme-dropdown"
+                      value="light"
+                      aria-label="Light"
+                      data-set-theme="light"
+                      :checked="theme === 'light'"
+                      class="checked:text-indigo-500 checked:ring-0 checked:ring-current focus:ring-0 focus:ring-current" />
+                    <div
+                      class="mockup-window w-44 rounded-xl border border-base-content/5 bg-base-300 before:-mt-4 before:mb-1 before:h-[6px] before:opacity-100 before:shadow-circle"
+                      data-theme="light">
+                      <div class="h-24 bg-base-200">
+                        <div class="flex h-full">
+                          {{-- sidebar --}}
+                          <div class="flex w-11 flex-col border-r bg-base-100">
+                            <div class="p-1">
+                              <div class="mb-5 h-2 w-6 rounded-badge bg-base-200"></div>
+                              <div class="flex flex-col gap-1">
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex flex-1 flex-col">
+                            <div class="h-3 border-b bg-base-100"></div>
+                            <div class="flex h-full flex-col gap-2 p-1 pb-0">
+                              <div class="flex justify-between">
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                              </div>
+                              <div class="flex h-full flex-col gap-1 rounded-t-md bg-base-100 p-2">
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="theme-dropdown"
-                  class="theme-controller btn btn-ghost btn-sm btn-block justify-start"
-                  aria-label="Dark"
-                  value="dark"
-                  data-set-theme="dark" />
+                <label
+                  class="inline-flex w-full cursor-pointer items-center justify-start rounded-lg border border-transparent p-2 hover:bg-base-content/10 has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
+                  <div class="inline-flex w-full items-center gap-2">
+                    <input
+                      type="radio"
+                      name="theme-dropdown"
+                      value="dark"
+                      aria-label="Dark"
+                      data-set-theme="dark"
+                      :checked="theme === 'dark'"
+                      class="checked:text-indigo-500 checked:ring-0 checked:ring-current focus:ring-0 focus:ring-current" />
+
+                    <div
+                      class="mockup-window w-44 rounded-xl border border-base-100 bg-base-300 before:-mt-4 before:mb-1 before:h-[6px] before:opacity-100 before:shadow-circle"
+                      data-theme="dark">
+                      <div class="h-24 bg-base-200">
+                        <div class="flex h-full">
+                          {{-- sidebar --}}
+                          <div class="flex w-11 flex-col border-r border-base-100 bg-base-100">
+                            <div class="p-1">
+                              <div class="mb-5 h-2 w-6 rounded-badge bg-base-200"></div>
+                              <div class="flex flex-col gap-1">
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex flex-1 flex-col">
+                            <div class="h-3 border-b border-base-100 bg-base-100"></div>
+                            <div class="flex h-full flex-col gap-2 p-1 pb-0">
+                              <div class="flex justify-between">
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                                <div class="relative h-4 w-8 rounded-sm bg-base-100">
+                                  <div class="absolute left-[4px] top-[5px] h-[1px] w-4 bg-base-content/20"></div>
+                                  <div class="absolute left-[8px] top-[10px] h-[1px] w-5 bg-base-content/20"></div>
+                                </div>
+                              </div>
+                              <div class="flex h-full flex-col gap-1 rounded-t-md bg-base-100 p-2">
+                                <div class="h-2 w-8 rounded-badge bg-base-200"></div>
+                                <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                                <div class="w-15 h-2 rounded-badge bg-base-200"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </label>
               </li>
             </ul>
           </div>
         </div>
-        <div
-          class="flex h-64 w-80 flex-col flex-wrap gap-2 rounded-xl bg-base-200 p-4">
+        <div class="flex h-64 w-80 flex-col flex-wrap gap-2 rounded-xl bg-base-200 p-4">
           <button class="btn">Button</button>
           <button class="btn btn-neutral">Neutral</button>
           <button class="btn btn-primary">Primary</button>
@@ -122,14 +311,8 @@
             </p>
             <label
               class="relative inline-flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-transparent p-2 transition-all duration-500 hover:bg-slate-200 has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
-              <div
-                class="relative inline-flex items-center justify-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="currentColor">
+              <div class="relative inline-flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
                   <path
                     d="M32 13.333l-4.177 9.333h-1.292l1.552-3.266-2.75-6.068h1.359l1.99 4.651h0.026l1.927-4.651zM14.646 16.219v3.781h-1.313v-9.333h3.474c0.828-0.021 1.63 0.266 2.25 0.807 0.615 0.505 0.953 1.219 0.943 1.974 0.010 0.766-0.339 1.5-0.943 1.979-0.604 0.531-1.354 0.792-2.25 0.792zM14.641 11.818v3.255h2.198c0.484 0.016 0.958-0.161 1.297-0.479 0.339-0.302 0.526-0.714 0.526-1.141 0-0.432-0.188-0.844-0.526-1.141-0.349-0.333-0.818-0.51-1.297-0.495zM22.63 13.333c0.833 0 1.495 0.234 1.979 0.698s0.724 1.099 0.724 1.906v3.859h-1.083v-0.87h-0.047c-0.469 0.714-1.089 1.073-1.865 1.073-0.667 0-1.219-0.203-1.667-0.615-0.438-0.385-0.682-0.948-0.672-1.531 0-0.646 0.234-1.161 0.708-1.547 0.469-0.38 1.099-0.573 1.885-0.573 0.672 0 1.224 0.13 1.656 0.385v-0.271c0.005-0.396-0.167-0.776-0.464-1.042-0.297-0.276-0.688-0.432-1.094-0.427-0.63 0-1.13 0.276-1.5 0.828l-0.995-0.646c0.547-0.818 1.359-1.229 2.432-1.229zM21.167 17.88c-0.005 0.302 0.135 0.583 0.375 0.766 0.25 0.203 0.563 0.313 0.88 0.307 0.474 0 0.932-0.198 1.271-0.547 0.359-0.333 0.563-0.802 0.563-1.292-0.354-0.292-0.844-0.438-1.474-0.438-0.464 0-0.844 0.115-1.151 0.344-0.307 0.234-0.464 0.516-0.464 0.859zM5.443 10.667c1.344-0.016 2.646 0.479 3.641 1.391l-1.552 1.521c-0.568-0.526-1.318-0.813-2.089-0.797-1.385 0.005-2.609 0.891-3.057 2.198-0.229 0.661-0.229 1.38 0 2.042 0.448 1.307 1.672 2.193 3.057 2.198 0.734 0 1.365-0.182 1.854-0.505 0.568-0.375 0.964-0.958 1.083-1.625h-2.938v-2.052h5.13c0.063 0.359 0.094 0.719 0.094 1.083 0 1.625-0.594 3-1.62 3.927-0.901 0.813-2.135 1.286-3.604 1.286-2.047 0.010-3.922-1.125-4.865-2.938-0.771-1.505-0.771-3.286 0-4.792 0.943-1.813 2.818-2.948 4.859-2.938z"></path>
                 </svg>
@@ -146,8 +329,7 @@
             </label>
             <label
               class="relative inline-flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-transparent p-2 transition-all duration-500 hover:bg-slate-200 has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
-              <div
-                class="relative inline-flex items-center justify-center gap-2">
+              <div class="relative inline-flex items-center justify-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -170,8 +352,7 @@
             </label>
             <label
               class="relative inline-flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-transparent p-2 transition-all duration-500 hover:bg-slate-200 has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
-              <div
-                class="relative inline-flex items-center justify-center gap-2">
+              <div class="relative inline-flex items-center justify-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 576 512"
@@ -194,14 +375,8 @@
             </label>
             <label
               class="relative inline-flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-transparent p-2 transition-all duration-500 hover:bg-slate-200 has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:font-bold has-[:checked]:text-indigo-900 has-[:checked]:transition-all has-[:checked]:duration-500 [&_p]:has-[:checked]:translate-y-0 [&_p]:has-[:checked]:opacity-100 [&_p]:has-[:checked]:transition-transform [&_p]:has-[:checked]:duration-500">
-              <div
-                class="relative inline-flex items-center justify-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="32"
-                  height="32"
-                  fill="currentColor">
+              <div class="relative inline-flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
                   <g>
                     <path fill="none" d="M0 0h24v24H0z"></path>
                     <path
@@ -221,6 +396,7 @@
             </label>
           </div>
         </div>
+        <div class="flex h-64 w-80 flex-col flex-wrap gap-2 rounded-xl p-4 dark:bg-yellow-200"></div>
       </div>
     </div>
   </body>

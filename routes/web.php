@@ -11,7 +11,7 @@ Route::get('/coba', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('beranda');
+    return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

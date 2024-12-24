@@ -1,8 +1,9 @@
 {
-  "printWidth": 80,
+  "printWidth": 820,
   "tabWidth": 2,
   "bracketSpacing": false,
   "bracketSameLine": true,
+  "singleQuote": true,
   "plugins": ["prettier-plugin-blade", "prettier-plugin-tailwindcss"],
   "overrides": [
     {
